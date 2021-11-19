@@ -20,6 +20,7 @@ class camera:
         self.camera = camera
         self.player = player
         
+        
     
     
      
@@ -28,7 +29,7 @@ class camera:
 class pygamewarpper:
     
     _instance = None
-       
+    
     #싱글터 제작
     def __new__(cls, *args, **kwargs):
         if not cls._instance :
@@ -36,26 +37,26 @@ class pygamewarpper:
         return cls._instance
     
     #pygame 초기화
-    def init(self, scrrenSize = Tuple , title = str , cam = camera):
+    def init(self, scrrenSize , title  ,gamecamera: camera):
         pygame.init()
         self._scrrenSize = scrrenSize
         self._scrren = pygame.display.set_mode(scrrenSize)
-        self.isinGame = False
-        self.ImageInfo = {}
-        self.Cam = cam;
+        self._isinGame = False
+        self._ImageInfo = {}
+        self.Cam = gamecamera
         pygame.display.set_caption(title)
     
     
     #게임 시작
     def GameStart(self):
-        self.isinGame = True    
+        self._isinGame = True    
     
     #게임 종료
     def GameQuit(self):
-        self.isinGame = False
+        self._isinGame = False
         
     #이미지 저장
-    def LoadObj(self, Imagepath = str , ImageName = str):
+    def LoadObj(self, Imagepath : str , ImageName : str):
         image = pygame.image.load(Imagepath)
         self.ImageInfo[ImageName] = image
         return image
@@ -67,14 +68,6 @@ class pygamewarpper:
         self.clock = pygame.time.Clock()    
     
     def blit(self , img , position):
-        self._scrren.blit(img , position + self.Cam);
-        
-        
-    def pygameUpdate():
-        pygame.display.update();
-
-    
-        
-        
+        self._scrren.blit(img , position + self.Cam.camera);
 
     
